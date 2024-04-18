@@ -38,7 +38,9 @@ async def homepage(request):
             <meta charset="UTF-8">
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
             <link rel="icon" type="image/png" href="tiger.png">
-            
+
+            <script defer data-domain="rit-dining.mufasa.cc" src="https://analytics.paracosmos.studio/js/script.js"></script>
+
             <meta name="description" content="Today's visiting chefs at RIT Dining">
             <meta name="author" content="@mufasa159">
             <meta name="keywords" content="RIT, Dining, Visiting Chefs, Daily Specials">
