@@ -16,14 +16,14 @@ async def scrape_visiting_chefs(url: str) -> List[VisitingChef]:
         async with session.get(url) as response:
             content = await response.text()
     soup = BeautifulSoup(content, 'html.parser')
-    specials_div = soup.find('div', class_='todays-specials-div')
+    specials_div = soup.find('div', class_='col-12 col-sm-6 col-lg-4').find('div')
     data = []
     
     if specials_div:
-        restaurant_blocks = specials_div.find_all('p', class_='h5')
+        restaurant_blocks = specials_div.find_all('a', href=True)
         for block in restaurant_blocks:
             restaurant_name = block.text.strip()
-            chefs = [chef.text.strip() for chef in block.find_next_sibling('ul').find_all('a')]
+            chefs = [chef.text.strip() for chef in block.find_next('ul').find_all('li')]
             data.append(VisitingChef(restaurant=restaurant_name, chefs=chefs))
     
     return data
@@ -129,7 +129,7 @@ async def homepage(request):
     for item in chefs_data:
         html_content += f"<h2>{item.restaurant}</h2><ul>"
         for chef in item.chefs:
-            html_content += f"<li>{chef[:-1]}</li>"
+            html_content += f"<li>{chef}</li>"
         html_content += "</ul>"
     html_content += """
         <p class='footer'>
